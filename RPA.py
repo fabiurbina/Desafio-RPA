@@ -218,32 +218,44 @@ def abrir_site():
     #---------------------------------------------------------------------------------------------------------------------------------
     
      #solicita novamente a confirmação
-    aceitar = WebDriverWait(driver, tempo).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@id='accept-all-btn']"))
-            )
-    aceitar.click()
-
+    try:
+        aceitar = WebDriverWait(driver, tempo).until(
+                    EC.element_to_be_clickable((By.XPATH, "//*[@id='accept-all-btn']"))
+                )
+        aceitar.click()
+    except TimeoutError:
+         print("Elemento não encontrado encerrando o codigo!")
+         sys.exit() 
     #---------------------------------------------------------------------------------------------------------------------------------
-    #acessar o panorama
-    panorama = WebDriverWait(driver, tempo).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@id='accordion1']/div[1]/button"))
-            )
-    panorama.click()
+    try:
+        #acessar o panorama
+        panorama = WebDriverWait(driver, tempo).until(
+                    EC.element_to_be_clickable((By.XPATH, "//*[@id='accordion1']/div[1]/button"))
+                )
+        panorama.click()
+    except TimeoutError:
+        print("Elemento não encontrado encerrando o codigo!")
+        sys.exit() 
     #---------------------------------------------------------------------------------------------------------------------------------
     #FIXME: Esse caso foi necessário usar javascript para centralizar corretamente a posição para melhor saída do print na tela
+    
     time.sleep(5) 
-    rec = WebDriverWait(driver, tempo).until(
-    EC.element_to_be_clickable((By.XPATH, "//*[@id='accordion1']/div[1]/button/span[2]"))
-    )
+    try:
+        rec = WebDriverWait(driver, tempo).until(
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='accordion1']/div[1]/button/span[2]"))
+        )
 
-    # Faz a página rolar até o botão
-    driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", rec)
+        # Faz a página rolar até o botão
+        driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", rec)
 
-    # Aguarda um segundo para o scroll acontecer (opcional)
-    time.sleep(1)
+        # Aguarda um segundo para o scroll acontecer (opcional)
+        time.sleep(1)
 
-    # Clica no botão
-    rec.click()
+        # Clica no botão
+        rec.click()
+    except TimeoutError:
+        print("Elemento não encontrado encerrando o codigo!")
+        sys.exit() 
     #---------------------------------------------------------------------------------------------------------------------------------
     
     #FIXME: Gera captura da evidencia para o primeiro caso coletado
@@ -351,5 +363,5 @@ def abrir_site():
 
 # Chamada da função
 cpf_nome_nis = parametro_pessoal() #Chama a função de informar CPF, NOME OU NIS
-parametro_busca() #Chama a função para selecionar o tipo de beneficio, por ora apenas 1 tipo de beneficio na lista
-abrir_site() #Chama o RPA que vai fazer as buscas das informações, codigo principal
+opcoes = parametro_busca() #Chama a função para selecionar o tipo de beneficio, por ora apenas 1 tipo de beneficio na lista
+Abrir = abrir_site() #Chama o RPA que vai fazer as buscas das informações, codigo principal
