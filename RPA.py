@@ -25,7 +25,7 @@ def parametro_pessoal():
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
-#Função para escolher o Beneficio soscial
+#Função para escolher o Beneficio social
 def parametro_busca(): #FIXME: Essa para acrescentar mais opções no imput de busca é necessário adcionar manualmente outra opção após 
                         # palavra "Beneficiário de Programa Social" da lista "opções".
     opcoes = [
