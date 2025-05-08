@@ -89,4 +89,26 @@ import pandas as pd  # Manipulação de dados estruturados (DataFrames)
 import json  # Trabalha com dados no formato JSON
 from io import BytesIO  # Manipula dados binários na memória
 import re  # Expressões regulares (para buscar padrões em strings)
+```
 
+#### Criação de instância para configurar o navegador
+
+```python
+options = webdriver.ChromeOptions()
+
+# Configurações para rodar o navegador sem interface gráfica (modo headless)
+options.add_argument("--headless=new")  # Modo headless (sem interface gráfica)
+options.add_argument("--disable-gpu")  # Desabilita o uso de GPU (necessário para rodar headless em alguns casos)
+options.add_argument("--no-sandbox")  # Desabilita o sandboxing, necessário em ambientes sem interface gráfica
+options.add_argument("--disable-dev-shm-usage")  # Evita o uso excessivo de memória compartilhada no ambiente Docker
+options.add_argument("--window-size=1920,1080")  # Define o tamanho da janela do navegador
+
+# Disfarces contra deteção de bots
+options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36")  # Simula um user-agent comum
+options.add_argument("--disable-blink-features=AutomationControlled")  # Desabilita a detecção de automação
+options.add_experimental_option("excludeSwitches", ["enable-automation"])  # Remove o aviso de automação no navegador
+options.add_experimental_option("useAutomationExtension", False)  # Desativa a extensão de automação do Chrome
+
+# Inicia o Chrome com as opções configuradas
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+```
